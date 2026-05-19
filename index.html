@@ -5,20 +5,625 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ewa & Artur — 27.05.2027</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf6f0;
+      --warm-white: #fff9f2;
+      --rose: #c9847a;
+      --rose-light: #e8bdb8;
+      --rose-dark: #a05e55;
+      --sage: #8a9e8c;
+      --sage-light: #c4d4c5;
+      --ink: #2c2420;
+      --ink-light: #6b5b55;
+      --gold: #c4a46b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 3rem 2rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 15% 20%, rgba(201,132,122,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 70% at 85% 80%, rgba(138,158,140,0.1) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(196,164,107,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Decorative botanical SVG corners */
+    .corner {
+      position: absolute;
+      width: 220px;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .corner-tl { top: 0; left: 0; transform: rotate(0deg); }
+    .corner-br { bottom: 0; right: 0; transform: rotate(180deg); }
+
+    .hero-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.2s forwards;
+    }
+
+    .hero-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 10vw, 7.5rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      opacity: 0;
+      animation: fadeUp 1s ease 0.4s forwards;
+    }
+
+    .hero-names span {
+      color: var(--rose);
+      font-style: italic;
+    }
+
+    .hero-ampersand {
+      display: block;
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: var(--gold);
+      margin: 0.1em 0;
+      font-style: italic;
+    }
+
+    .hero-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      color: var(--ink-light);
+      margin-top: 1.8rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.6s forwards;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.5rem auto;
+      width: min(300px, 80%);
+      opacity: 0;
+      animation: fadeUp 1s ease 0.8s forwards;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--rose-light); }
+    .divider-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--rose-light); }
+
+    .hero-intro {
+      max-width: 520px;
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--ink-light);
+      opacity: 0;
+      animation: fadeUp 1s ease 1s forwards;
+    }
+
+    .scroll-cta {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.2s forwards;
+    }
+    .scroll-cta span {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+    .scroll-arrow {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--rose-light), transparent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* ── DETAILS SECTION ── */
+    .details {
+      padding: 6rem 2rem;
+      background: var(--warm-white);
+      position: relative;
+    }
+
+    .details::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--rose-light), transparent);
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300;
+      text-align: center;
+      color: var(--ink);
+      margin-bottom: 3.5rem;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .detail-card {
+      background: var(--cream);
+      border: 1px solid rgba(201,132,122,0.15);
+      border-radius: 2px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .detail-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(160,94,85,0.08);
+    }
+
+    .detail-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .detail-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--rose-dark);
+      margin-bottom: 0.8rem;
+    }
+
+    .detail-card p {
+      font-size: 0.875rem;
+      line-height: 1.8;
+      color: var(--ink-light);
+    }
+
+    /* ── FORM SECTION ── */
+    .form-section {
+      padding: 6rem 2rem;
+      position: relative;
+    }
+
+    .form-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--sage-light), transparent);
+    }
+
+    .form-wrap {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.75rem;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      background: var(--warm-white);
+      border: 1px solid rgba(201,132,122,0.25);
+      border-radius: 2px;
+      padding: 0.9rem 1.1rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--ink);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      outline: none;
+    }
+    input:focus {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 3px rgba(201,132,122,0.1);
+    }
+
+    .radio-group,
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .radio-option,
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--ink);
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(201,132,122,0.15);
+      border-radius: 2px;
+      background: var(--warm-white);
+      transition: background 0.2s, border-color 0.2s;
+      user-select: none;
+    }
+    .radio-option:hover,
+    .checkbox-option:hover {
+      background: rgba(201,132,122,0.05);
+      border-color: var(--rose-light);
+    }
+    .radio-option input,
+    .checkbox-option input {
+      accent-color: var(--rose);
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Conditional food section */
+    #food-section {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.4s ease;
+    }
+    #food-section.visible {
+      max-height: 600px;
+      opacity: 1;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1.1rem;
+      background: var(--rose);
+      color: white;
+      border: none;
+      border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 2.5rem;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .submit-btn:hover {
+      background: var(--rose-dark);
+      transform: translateY(-1px);
+    }
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .form-note {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--ink-light);
+      margin-top: 1.5rem;
+      line-height: 1.7;
+    }
+
+    /* Success message */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    .success-msg.show { display: block; }
+    .success-msg h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--rose-dark);
+      margin-bottom: 1rem;
+    }
+    .success-msg p {
+      font-size: 0.9rem;
+      color: var(--ink-light);
+      line-height: 1.8;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(201,132,122,0.12);
+    }
+    footer p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--ink-light);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+  </style>
 </head>
-  
-  <!-- Block 2: Plan of the day -->
-  <section id="plan">
-  </section>
-
-  <!-- Block 3: Survey / RSVP -->
-  <section id="ankieta">
-  </section>
-
-  <!-- Block 4: Location & contacts -->
-  <section id="kontakt">
-  </section>
 <body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <!-- Botanical corner decorations -->
+  <svg class="corner corner-tl" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10,190 Q10,10 190,10" stroke="#a05e55" stroke-width="1" fill="none"/>
+    <path d="M30,190 Q20,80 100,40 Q140,20 190,30" stroke="#8a9e8c" stroke-width="0.8" fill="none"/>
+    <circle cx="100" cy="40" r="3" fill="#c9847a"/>
+    <circle cx="140" cy="20" r="2" fill="#8a9e8c"/>
+    <ellipse cx="80" cy="80" rx="12" ry="7" transform="rotate(-30 80 80)" fill="#c9847a" opacity="0.4"/>
+    <ellipse cx="50" cy="130" rx="10" ry="6" transform="rotate(-60 50 130)" fill="#8a9e8c" opacity="0.4"/>
+    <ellipse cx="120" cy="55" rx="9" ry="5" transform="rotate(-10 120 55)" fill="#c9847a" opacity="0.3"/>
+    <path d="M60,150 Q65,130 80,125" stroke="#c4a46b" stroke-width="0.8" fill="none"/>
+    <path d="M90,100 Q100,85 115,82" stroke="#c4a46b" stroke-width="0.8" fill="none"/>
+  </svg>
+  <svg class="corner corner-br" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10,190 Q10,10 190,10" stroke="#a05e55" stroke-width="1" fill="none"/>
+    <path d="M30,190 Q20,80 100,40 Q140,20 190,30" stroke="#8a9e8c" stroke-width="0.8" fill="none"/>
+    <circle cx="100" cy="40" r="3" fill="#c9847a"/>
+    <circle cx="140" cy="20" r="2" fill="#8a9e8c"/>
+    <ellipse cx="80" cy="80" rx="12" ry="7" transform="rotate(-30 80 80)" fill="#c9847a" opacity="0.4"/>
+    <ellipse cx="50" cy="130" rx="10" ry="6" transform="rotate(-60 50 130)" fill="#8a9e8c" opacity="0.4"/>
+    <ellipse cx="120" cy="55" rx="9" ry="5" transform="rotate(-10 120 55)" fill="#c9847a" opacity="0.3"/>
+  </svg>
+
+  <p class="hero-eyebrow">Zaproszenie na ślub</p>
+
+  <h1 class="hero-names">
+    Ewa
+    <span class="hero-ampersand">&</span>
+    Artur
+  </h1>
+
+  <p class="hero-date">27 · 05 · 2027</p>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <p class="hero-intro">
+    Z radością informujemy, że powiemy sobie „tak". Prosimy o potwierdzenie obecności oraz wypełnienie krótkiej ankiety, która pomoże nam zadbać o każdy szczegół tego wyjątkowego dnia.
+  </p>
+
+  <div class="scroll-cta">
+    <span>Szczegóły</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ── DETAILS ── -->
+<section class="details">
+  <p class="section-label">Informacje</p>
+  <h2 class="section-title">Szczegóły uroczystości</h2>
+
+  <div class="details-grid">
+    <div class="detail-card">
+      <span class="detail-icon">⛪</span>
+      <h3>Ceremonia</h3>
+      <p>
+        Kościół Wniebowzięcia NMP<br>
+        ul. Przykładowa 1<br>
+        Kraków<br><br>
+        Godz. 14:00
+      </p>
+    </div>
+    <div class="detail-card">
+      <span class="detail-icon">🥂</span>
+      <h3>Wesele</h3>
+      <p>
+        Sala Weselna „Złota Róża"<br>
+        ul. Przykładowa 22<br>
+        Kraków<br><br>
+        Godz. 16:00
+      </p>
+    </div>
+    <div class="detail-card">
+      <span class="detail-icon">📅</span>
+      <h3>Data</h3>
+      <p>
+        Czwartek<br>
+        27 maja 2027<br><br>
+        Prosimy o potwierdzenie<br>obecności do 1 marca 2027
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FORM ── -->
+<section class="form-section">
+  <p class="section-label">Formularz</p>
+  <h2 class="section-title">Potwierdź swoją obecność</h2>
+
+  <div class="form-wrap">
+    <div class="success-msg" id="success">
+      <h3>Dziękujemy! 🌿</h3>
+      <p>Twoja odpowiedź została zapisana.<br>Nie możemy się doczekać, aby świętować razem z Tobą!</p>
+    </div>
+
+    <form id="rsvp-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+      <div class="form-group">
+        <label for="name">Imię i nazwisko</label>
+        <input type="text" id="name" name="name" placeholder="Jan Kowalski" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Adres e-mail</label>
+        <input type="email" id="email" name="email" placeholder="jan@example.com" required />
+      </div>
+
+      <div class="form-group">
+        <label>Przybycie</label>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="attendance" value="Z partnerem/partnerką" required />
+            Przyjadę z partnerem / partnerką
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="attendance" value="Solo" />
+            Przyjadę sam / sama
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="attendance" value="Nieobecny" id="absent-radio" />
+            Niestety nie mogę przybyć
+          </label>
+        </div>
+      </div>
+
+      <!-- Hidden when absent -->
+      <div id="attending-fields">
+        <div class="form-group">
+          <label>Udział w uroczystościach</label>
+          <div class="checkbox-group">
+            <label class="checkbox-option">
+              <input type="checkbox" name="events" value="Ceremonia" />
+              Ceremonia ślubna (godz. 14:00)
+            </label>
+            <label class="checkbox-option">
+              <input type="checkbox" name="events" value="Wesele" />
+              Wesele (godz. 16:00)
+            </label>
+          </div>
+        </div>
+
+        <div id="food-section">
+          <div class="form-group">
+            <label>Preferencje żywieniowe</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="food" value="Mięsne" />
+                Dania mięsne
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="food" value="Wegetariańskie" />
+                Wegetariańskie
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="food" value="Wegańskie" />
+                Wegańskie
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Potwierdź obecność</button>
+    </form>
+
+    <p class="form-note">
+      W razie pytań prosimy o kontakt:<br>
+      <strong>ewa.artur2027@gmail.com</strong>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>Ewa & Artur — 27 maja 2027 — z miłością</p>
+</footer>
+
+<script>
+  // Show/hide fields based on attendance
+  const radios = document.querySelectorAll('input[name="attendance"]');
+  const attendingFields = document.getElementById('attending-fields');
+  const foodSection = document.getElementById('food-section');
+  const eventCheckboxes = document.querySelectorAll('input[name="events"]');
+
+  radios.forEach(r => {
+    r.addEventListener('change', () => {
+      const absent = document.getElementById('absent-radio').checked;
+      attendingFields.style.display = absent ? 'none' : 'block';
+    });
+  });
+
+  // Show food section when any event is checked
+  eventCheckboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+      const anyChecked = Array.from(eventCheckboxes).some(c => c.checked);
+      foodSection.classList.toggle('visible', anyChecked);
+    });
+  });
+
+  // Form submission via Formspree (AJAX)
+  const form = document.getElementById('rsvp-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.style.display = 'none';
+      document.getElementById('success').classList.add('show');
+    } else {
+      alert('Coś poszło nie tak. Spróbuj ponownie lub napisz do nas bezpośrednio.');
+    }
+  });
+</script>
 
 </body>
 </html>
