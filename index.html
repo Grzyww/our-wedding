@@ -6,60 +6,105 @@
 <title>Ewa & Artur — 27.05.2027</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
+:root{
+  --bg:#f8fbf6;
+  --bg-soft:#f0f6ed;
+  --bg-hero-1:#f5faf2;
+  --bg-hero-2:#eef5ea;
+  --bg-hero-3:#e5efe0;
+  --text:#1f2a22;
+  --muted:#5d7063;
+  --accent:#6f9476;
+  --accent-dark:#55775c;
+  --accent-light:#a9c4ae;
+  --border:#d6e4d3;
+  --card:#ffffff;
+  --warn:#b5655a;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Lato',sans-serif;font-weight:300;background:#fdfaf6;color:#2a1f1a;overflow-x:hidden}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 2rem;background:linear-gradient(160deg,#fdf6ee 0%,#faf0e8 50%,#f5ece0 100%);position:relative}
-.hero-tag{font-size:0.65rem;letter-spacing:0.4em;text-transform:uppercase;color:#b07060;margin-bottom:2rem}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(4rem,12vw,8rem);font-weight:400;line-height:0.95;color:#2a1f1a}
-.hero h1 em{color:#c07860;font-style:italic}
-.amp{display:block;font-size:clamp(1.5rem,4vw,3rem);color:#c9a070;margin:0.2em 0}
-.hero-date{font-family:'Playfair Display',serif;font-size:clamp(0.9rem,2vw,1.2rem);letter-spacing:0.25em;color:#7a6055;margin-top:1.5rem}
+body{font-family:'Lato',sans-serif;font-weight:300;background:var(--bg);color:var(--text);overflow-x:hidden}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 2rem;background:linear-gradient(160deg,var(--bg-hero-1) 0%,var(--bg-hero-2) 50%,var(--bg-hero-3) 100%);position:relative}
+.hero-tag{font-size:0.65rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(4rem,12vw,8rem);font-weight:400;line-height:0.95;color:var(--text)}
+.hero h1 em{color:var(--accent-dark);font-style:italic}
+.amp{display:block;font-size:clamp(1.5rem,4vw,3rem);color:var(--accent-light);margin:0.2em 0}
+.hero-date{font-family:'Playfair Display',serif;font-size:clamp(0.9rem,2vw,1.2rem);letter-spacing:0.25em;color:var(--muted);margin-top:1.5rem}
 .divider{display:flex;align-items:center;gap:12px;margin:2rem auto;width:200px}
-.divider-line{flex:1;height:1px;background:#ddc0b0}
-.divider-dot{width:4px;height:4px;border-radius:50%;background:#ddc0b0}
-.hero p.sub{max-width:480px;font-size:0.9rem;line-height:1.9;color:#7a6055}
+.divider-line{flex:1;height:1px;background:var(--accent-light)}
+.divider-dot{width:4px;height:4px;border-radius:50%;background:var(--accent-light)}
+.hero p.sub{max-width:480px;font-size:0.9rem;line-height:1.9;color:var(--muted)}
+
+/* COUNTDOWN */
+.countdown{margin-top:2.5rem}
+.cd-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+.cd-grid{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap}
+.cd-box{min-width:78px;padding:0.9rem 0.6rem;background:rgba(255,255,255,0.7);border:1px solid var(--border);border-radius:2px}
+.cd-num{display:block;font-family:'Playfair Display',serif;font-size:clamp(1.6rem,5vw,2.2rem);color:var(--accent-dark);line-height:1}
+.cd-unit{display:block;margin-top:0.5rem;font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted)}
+.cd-done{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--accent-dark)}
+
 .nav{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:100}
-.nav a{width:8px;height:8px;border-radius:50%;border:1px solid #c07860;background:transparent;display:block;transition:background 0.2s}
-.nav a.active,.nav a:hover{background:#c07860}
+.nav a{width:8px;height:8px;border-radius:50%;border:1px solid var(--accent);background:transparent;display:block;transition:background 0.2s}
+.nav a.active,.nav a:hover{background:var(--accent)}
 section{padding:5rem 2rem;position:relative}
-section::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(to right,transparent,#e0c8b8,transparent)}
-.section-label{text-align:center;font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:#b07060;margin-bottom:0.75rem}
-.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:400;text-align:center;color:#2a1f1a;margin-bottom:3.5rem}
+section::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(to right,transparent,var(--border),transparent)}
+.section-label{text-align:center;font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:400;text-align:center;color:var(--text);margin-bottom:3.5rem}
 .timeline{max-width:700px;margin:0 auto;position:relative}
-.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,#ddc0b0 10%,#ddc0b0 90%,transparent);transform:translateX(-50%)}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--accent-light) 10%,var(--accent-light) 90%,transparent);transform:translateX(-50%)}
 .tl-item{display:flex;margin-bottom:2.5rem;position:relative;align-items:flex-start}
 .tl-item.left{flex-direction:row-reverse}
-.tl-content{width:calc(50% - 2rem);background:#fff;border:1px solid #edd8c8;border-radius:2px;padding:1.25rem 1.5rem}
+.tl-content{width:calc(50% - 2rem);background:var(--card);border:1px solid var(--border);border-radius:2px;padding:1.25rem 1.5rem}
 .tl-item.left .tl-content{margin-right:2rem;text-align:right}
 .tl-item.right .tl-content{margin-left:2rem}
-.tl-dot{position:absolute;left:50%;top:1.25rem;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;background:#c07860;border:2px solid #fdfaf6;z-index:1}
-.tl-time{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:#b07060;margin-bottom:0.4rem}
-.tl-content h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;color:#2a1f1a;margin-bottom:0.4rem}
-.tl-content p{font-size:0.82rem;line-height:1.7;color:#7a6055}
-.form-section{background:#fff8f2}
+.tl-dot{position:absolute;left:50%;top:1.25rem;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);z-index:1}
+.tl-time{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:0.4rem}
+.tl-content h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;color:var(--text);margin-bottom:0.4rem}
+.tl-content p{font-size:0.82rem;line-height:1.7;color:var(--muted)}
+
+/* GIFTS */
+.gifts-wrap{max-width:760px;margin:0 auto;text-align:center}
+.gifts-intro{max-width:520px;margin:-1.5rem auto 2.5rem;font-size:0.9rem;line-height:1.9;color:var(--muted)}
+.gifts-row{display:flex;align-items:center;justify-content:center;gap:1.5rem}
+.gift-card{flex:1;max-width:260px;background:var(--card);border:1px solid var(--border);border-radius:2px;padding:2rem 1.5rem}
+.gift-card svg.icon{width:84px;height:84px;margin-bottom:1rem}
+.gift-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;color:var(--accent-dark);margin-bottom:0.6rem}
+.gift-card p{font-size:0.82rem;line-height:1.7;color:var(--muted)}
+.gift-arrow{flex:0 0 64px}
+.gift-arrow svg{width:64px;height:24px;display:block}
+
+.form-section{background:var(--bg-soft)}
 .form-wrap{max-width:580px;margin:0 auto}
 .form-group{margin-bottom:1.75rem}
-.form-group label.field-label{display:block;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:#7a6055;margin-bottom:0.6rem}
-input[type=text],input[type=email]{width:100%;background:#fdfaf6;border:1px solid #edd8c8;border-radius:2px;padding:0.8rem 1rem;font-family:'Lato',sans-serif;font-size:0.875rem;font-weight:300;color:#2a1f1a;outline:none;transition:border-color 0.2s}
-input:focus{border-color:#c07860}
-.radio-opt{display:flex;align-items:center;gap:10px;padding:0.7rem 1rem;border:1px solid #edd8c8;border-radius:2px;margin-bottom:0.5rem;cursor:pointer;font-size:0.875rem;color:#2a1f1a;background:#fdfaf6;transition:border-color 0.2s}
-.radio-opt:hover{border-color:#c07860}
-.radio-opt input{accent-color:#c07860}
-.btn-submit{width:100%;padding:1rem;background:#c07860;color:#fff;border:none;border-radius:2px;font-family:'Lato',sans-serif;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;margin-top:2rem;transition:background 0.2s}
-.btn-submit:hover{background:#a05848}
+.form-group label.field-label{display:block;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem}
+input[type=text],input[type=email]{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:2px;padding:0.8rem 1rem;font-family:'Lato',sans-serif;font-size:0.875rem;font-weight:300;color:var(--text);outline:none;transition:border-color 0.2s}
+input:focus{border-color:var(--accent)}
+.radio-opt{display:flex;align-items:center;gap:10px;padding:0.7rem 1rem;border:1px solid var(--border);border-radius:2px;margin-bottom:0.5rem;cursor:pointer;font-size:0.875rem;color:var(--text);background:var(--bg);transition:border-color 0.2s}
+.radio-opt:hover{border-color:var(--accent)}
+.radio-opt input{accent-color:var(--accent)}
+.btn-submit{width:100%;padding:1rem;background:var(--accent);color:#fff;border:none;border-radius:2px;font-family:'Lato',sans-serif;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;margin-top:2rem;transition:background 0.2s}
+.btn-submit:hover{background:var(--accent-dark)}
 .kontakt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;max-width:800px;margin:0 auto}
-.k-card{background:#fff;border:1px solid #edd8c8;border-radius:2px;padding:2rem;text-align:center}
-.k-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;color:#c07860;margin-bottom:0.75rem}
-.k-card p{font-size:0.82rem;line-height:1.8;color:#7a6055}
-.k-card a{color:#c07860;text-decoration:none}
-footer{padding:2.5rem;text-align:center;border-top:1px solid #edd8c8}
-footer p{font-family:'Playfair Display',serif;font-style:italic;font-size:0.95rem;color:#7a6055}
+.k-card{background:var(--card);border:1px solid var(--border);border-radius:2px;padding:2rem;text-align:center}
+.k-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;color:var(--accent-dark);margin-bottom:0.75rem}
+.k-card p{font-size:0.82rem;line-height:1.8;color:var(--muted)}
+.k-card a{color:var(--accent-dark);text-decoration:none}
+footer{padding:2.5rem;text-align:center;border-top:1px solid var(--border)}
+footer p{font-family:'Playfair Display',serif;font-style:italic;font-size:0.95rem;color:var(--muted)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .fade1{animation:fadeUp 0.8s ease 0.2s both}
 .fade2{animation:fadeUp 0.8s ease 0.4s both}
 .fade3{animation:fadeUp 0.8s ease 0.6s both}
 .fade4{animation:fadeUp 0.8s ease 0.8s both}
 .fade5{animation:fadeUp 0.8s ease 1s both}
+.fade6{animation:fadeUp 0.8s ease 1.2s both}
+
+@media (max-width:600px){
+  .gifts-row{flex-direction:column}
+  .gift-card{max-width:100%;width:100%}
+  .gift-arrow{flex:0 0 auto;transform:rotate(90deg);margin:0.5rem 0}
+  .cd-box{min-width:68px}
+}
 </style>
 </head>
 <body>
@@ -69,6 +114,7 @@ footer p{font-family:'Playfair Display',serif;font-style:italic;font-size:0.95re
 <a href="#hero" class="active" title="Początek"></a>
 <a href="#plan" title="Plan dnia"></a>
 <a href="#ankieta" title="Ankieta"></a>
+<a href="#prezenty" title="Prezenty"></a>
 <a href="#kontakt" title="Kontakt"></a>
 </nav>
 
@@ -91,6 +137,16 @@ Z radością informujemy, że powiemy sobie „tak".
 Prosimy o potwierdzenie obecności oraz wypełnienie
 krótkiej ankiety poniżej.
 </p>
+
+<div class="countdown fade6" id="countdown">
+<p class="cd-label">Do ślubu zostało</p>
+<div class="cd-grid" id="cd-grid">
+<div class="cd-box"><span class="cd-num" id="cd-d">--</span><span class="cd-unit">dni</span></div>
+<div class="cd-box"><span class="cd-num" id="cd-h">--</span><span class="cd-unit">godz.</span></div>
+<div class="cd-box"><span class="cd-num" id="cd-m">--</span><span class="cd-unit">min</span></div>
+<div class="cd-box"><span class="cd-num" id="cd-s">--</span><span class="cd-unit">sek.</span></div>
+</div>
+</div>
 </section>
 
 <!-- BLOCK 2: PLAN OF THE DAY -->
@@ -204,7 +260,50 @@ Wegańskie
 </div>
 </section>
 
-<!-- BLOCK 4: LOCATION & CONTACTS -->
+<!-- BLOCK 4: GIFTS -->
+<section id="prezenty">
+<p class="section-label">Prezenty</p>
+<h2 class="section-title">Czym możecie nas ucieszyć</h2>
+<div class="gifts-wrap">
+<p class="gifts-intro">
+Wasza obecność jest dla nas najważniejszym prezentem.
+Jeśli jednak chcecie nam coś podarować, mamy małą prośbę.
+</p>
+<div class="gifts-row">
+
+<div class="gift-card">
+<svg class="icon" viewBox="0 0 64 64" fill="none" role="img" aria-label="Przekreślony kieliszek: prosimy bez alkoholu">
+<path d="M20 10h24v4c0 10-5 17-12 17S20 24 20 14z" stroke="#6f9476" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M32 31v18M23 53h18" stroke="#6f9476" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="32" cy="32" r="28" stroke="#b5655a" stroke-width="3"/>
+<path d="M12 12l40 40" stroke="#b5655a" stroke-width="3" stroke-linecap="round"/>
+</svg>
+<h3>Bez alkoholu</h3>
+<p>Alkohol mamy zapewniony, więc prosimy o prezenty bez procentów.</p>
+</div>
+
+<div class="gift-arrow" aria-hidden="true">
+<svg viewBox="0 0 64 24" fill="none">
+<path d="M4 12h52" stroke="#6f9476" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M46 4l12 8-12 8" stroke="#6f9476" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</div>
+
+<div class="gift-card">
+<svg class="icon" viewBox="0 0 64 64" fill="none" role="img" aria-label="Otwarta książka">
+<path d="M6 14c9-3 17-2 26 3 9-5 17-6 26-3v35c-9-3-17-2-26 3-9-5-17-6-26-3z" stroke="#6f9476" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M32 17v35" stroke="#6f9476" stroke-width="2.5"/>
+<path d="M13 23c4-1 8-1 12 1M13 30c4-1 8-1 12 1M39 24c4-2 8-2 12-1M39 31c4-2 8-2 12-1" stroke="#a9c4ae" stroke-width="2" stroke-linecap="round"/>
+</svg>
+<h3>Książki</h3>
+<p>Chętnie przyjmiemy książki, najlepiej podróżnicze. Będą inspiracją do naszych wspólnych wypraw.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- BLOCK 5: LOCATION & CONTACTS -->
 <section id="kontakt">
 <p class="section-label">Informacje</p>
 <h2 class="section-title">Lokalizacja & kontakt</h2>
@@ -241,6 +340,7 @@ Artur: <a href="tel:+48696630919">+48 696 630 919</a>
 </footer>
 
 <script>
+// Nawigacja boczna
 const sections = document.querySelectorAll('section[id]');
 const dots = document.querySelectorAll('.nav a');
 window.addEventListener('scroll', () => {
@@ -253,6 +353,27 @@ window.addEventListener('scroll', () => {
   });
 }, { passive: true });
 
+// Odliczanie do ślubu (27.05.2027, godz. 14:00 czasu lokalnego gościa)
+const target = new Date(2027, 4, 27, 14, 0, 0);
+const pad = n => String(n).padStart(2, '0');
+function tick() {
+  const diff = target - new Date();
+  if (diff <= 0) {
+    document.getElementById('countdown').innerHTML =
+      '<p class="cd-done">Już po ślubie — dziękujemy, że jesteście z nami 🌿</p>';
+    clearInterval(timer);
+    return;
+  }
+  const s = Math.floor(diff / 1000);
+  document.getElementById('cd-d').textContent = Math.floor(s / 86400);
+  document.getElementById('cd-h').textContent = pad(Math.floor((s % 86400) / 3600));
+  document.getElementById('cd-m').textContent = pad(Math.floor((s % 3600) / 60));
+  document.getElementById('cd-s').textContent = pad(s % 60);
+}
+const timer = setInterval(tick, 1000);
+tick();
+
+// Formularz RSVP
 const form = document.getElementById('rsvp-form');
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -263,7 +384,7 @@ form.addEventListener('submit', async (e) => {
     headers: { 'Accept': 'application/json' }
   });
   if (res.ok) {
-    form.innerHTML = '<p style="text-align:center;font-family:\'Playfair Display\',serif;font-size:1.5rem;color:#c07860;padding:3rem 0">Dziękujemy! Do zobaczenia 27 maja 🌿</p>';
+    form.innerHTML = '<p style="text-align:center;font-family:\'Playfair Display\',serif;font-size:1.5rem;color:#55775c;padding:3rem 0">Dziękujemy! Do zobaczenia 27 maja 🌿</p>';
   } else {
     alert('Coś poszło nie tak. Spróbuj ponownie.');
   }
