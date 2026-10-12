@@ -77,8 +77,12 @@ section::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px
 .form-wrap{max-width:580px;margin:0 auto}
 .form-group{margin-bottom:1.75rem}
 .form-group label.field-label{display:block;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem}
-input[type=text],input[type=email]{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:2px;padding:0.8rem 1rem;font-family:'Lato',sans-serif;font-size:0.875rem;font-weight:300;color:var(--text);outline:none;transition:border-color 0.2s}
+input[type=text],input[type=email],input[type=tel]{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:2px;padding:0.8rem 1rem;font-family:'Lato',sans-serif;font-size:0.875rem;font-weight:300;color:var(--text);outline:none;transition:border-color 0.2s}
 input:focus{border-color:var(--accent)}
+[hidden]{display:none!important}
+.req::after{content:' *';color:var(--accent-dark)}
+.hint{margin-top:0.5rem;font-size:0.75rem;line-height:1.6;color:var(--muted)}
+.form-note{font-size:0.72rem;color:var(--muted);text-align:center;margin-top:1rem}
 .radio-opt{display:flex;align-items:center;gap:10px;padding:0.7rem 1rem;border:1px solid var(--border);border-radius:2px;margin-bottom:0.5rem;cursor:pointer;font-size:0.875rem;color:var(--text);background:var(--bg);transition:border-color 0.2s}
 .radio-opt:hover{border-color:var(--accent)}
 .radio-opt input{accent-color:var(--accent)}
@@ -202,17 +206,24 @@ krótkiej ankiety poniżej.
 <form id="rsvp-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
 
 <div class="form-group">
-<label class="field-label" for="name">Imię i nazwisko</label>
+<label class="field-label req" for="name">Imię i nazwisko</label>
 <input type="text" id="name" name="name" placeholder="Jan Kowalski" required/>
 </div>
 
 <div class="form-group">
 <label class="field-label" for="email">Adres e-mail</label>
-<input type="email" id="email" name="email" placeholder="jan@example.com" required/>
+<input type="email" id="email" name="email" placeholder="jan@example.com"/>
+<p class="hint">Na ten adres wyślemy odnośnik do zdjęć po weselu.</p>
 </div>
 
 <div class="form-group">
-<label class="field-label">Przybycie</label>
+<label class="field-label" for="phone">Telefon</label>
+<input type="tel" id="phone" name="phone" placeholder="+48 500 000 000"/>
+<p class="hint">Na ten numer wyślemy odnośnik do zdjęć po weselu.</p>
+</div>
+
+<div class="form-group">
+<label class="field-label req">Przybycie</label>
 <label class="radio-opt">
 <input type="radio" name="attendance" value="Z partnerem/partnerką" required/>
 Przyjadę z partnerem / partnerką
@@ -227,6 +238,8 @@ Niestety nie mogę przybyć
 </label>
 </div>
 
+<div id="attending-fields">
+
 <div class="form-group">
 <label class="field-label">Udział w uroczystościach</label>
 <label class="radio-opt">
@@ -240,9 +253,9 @@ Wesele (16:00)
 </div>
 
 <div class="form-group">
-<label class="field-label">Preferencje żywieniowe</label>
+<label class="field-label req">Preferencje żywieniowe</label>
 <label class="radio-opt">
-<input type="radio" name="food" value="Mięsne"/>
+<input type="radio" name="food" value="Mięsne" required/>
 Dania mięsne
 </label>
 <label class="radio-opt">
@@ -255,7 +268,42 @@ Wegańskie
 </label>
 </div>
 
+<div class="form-group">
+<label class="field-label req">Nocleg</label>
+<label class="radio-opt">
+<input type="radio" name="accommodation" value="Potrzebuję noclegu" required/>
+Potrzebuję noclegu
+</label>
+<label class="radio-opt">
+<input type="radio" name="accommodation" value="Nie potrzebuję noclegu"/>
+Nie potrzebuję noclegu
+</label>
+</div>
+
+<div class="form-group">
+<label class="field-label req">Transport</label>
+<label class="radio-opt">
+<input type="radio" name="transport" value="Nie potrzebuję transportu" required/>
+Nie potrzebuję transportu
+</label>
+<label class="radio-opt">
+<input type="radio" name="transport" value="Do kościoła"/>
+Potrzebuję transportu do kościoła
+</label>
+<label class="radio-opt">
+<input type="radio" name="transport" value="Na salę"/>
+Potrzebuję transportu na salę
+</label>
+<label class="radio-opt">
+<input type="radio" name="transport" value="Do kościoła i na salę"/>
+Potrzebuję transportu do kościoła i na salę
+</label>
+</div>
+
+</div>
+
 <button type="submit" class="btn-submit">Potwierdź obecność</button>
+<p class="form-note">Pola oznaczone * są wymagane.</p>
 </form>
 </div>
 </section>
@@ -372,6 +420,16 @@ function tick() {
 }
 const timer = setInterval(tick, 1000);
 tick();
+
+// Ukrywanie pól szczegółowych dla osób, które nie mogą przybyć
+const attendingFields = document.getElementById('attending-fields');
+function toggleAttending() {
+  const checked = document.querySelector('input[name="attendance"]:checked');
+  const absent = checked && checked.value === 'Nieobecny';
+  attendingFields.hidden = !!absent;
+  attendingFields.querySelectorAll('input').forEach(i => { i.disabled = !!absent; });
+}
+document.querySelectorAll('input[name="attendance"]').forEach(r => r.addEventListener('change', toggleAttending));
 
 // Formularz RSVP
 const form = document.getElementById('rsvp-form');
