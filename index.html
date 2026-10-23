@@ -242,6 +242,11 @@ Niestety nie mogę przybyć
 </label>
 </div>
 
+<div class="form-group" id="partner-field" hidden>
+<label class="field-label req" for="partner">Imię i nazwisko osoby towarzyszącej</label>
+<input type="text" id="partner" name="partner" placeholder="Anna Kowalska" disabled/>
+</div>
+
 <div id="attending-fields">
 
 <div class="form-group">
@@ -427,11 +432,20 @@ tick();
 
 // Ukrywanie pól szczegółowych dla osób, które nie mogą przybyć
 const attendingFields = document.getElementById('attending-fields');
+const partnerField = document.getElementById('partner-field');
+const partnerInput = document.getElementById('partner');
 function toggleAttending() {
   const checked = document.querySelector('input[name="attendance"]:checked');
   const absent = checked && checked.value === 'Nieobecny';
   attendingFields.hidden = !!absent;
   attendingFields.querySelectorAll('input').forEach(i => { i.disabled = !!absent; });
+
+  // Pole na dane osoby towarzyszącej
+  const withPartner = checked && checked.value === 'Z partnerem/partnerką';
+  partnerField.hidden = !withPartner;
+  partnerInput.disabled = !withPartner;
+  partnerInput.required = !!withPartner;
+  if (!withPartner) partnerInput.value = '';
 }
 document.querySelectorAll('input[name="attendance"]').forEach(r => r.addEventListener('change', toggleAttending));
 
